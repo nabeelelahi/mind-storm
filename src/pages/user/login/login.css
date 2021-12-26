@@ -1,0 +1,41 @@
+.login-section {
+    min-height: 55vh;
+}
+
+.login-card {
+    margin-top: -25%;
+    height: 80vh;
+    width: 40%;
+}
+
+
+@media screen and (min-width: 0px) {
+    .login-card {
+        width: 100%;
+    }
+}
+
+
+@media screen and (min-width: 576px) {
+    .login-card {
+        width: 85%;
+    }
+}
+
+@media screen and (min-width: 768px) {
+    .login-card {
+        width: 75%;
+    }
+}
+
+@media screen and (min-width: 992px) {
+    .login-card {
+        width: 50%;
+    }
+}
+
+@media screen and (min-width: 1200px) {
+    .login-card {
+        width: 45%;
+    }
+}

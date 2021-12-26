@@ -1,0 +1,14 @@
+.dashboard-section{
+    min-height: 85vh;
+}
+.workspace-card{
+    min-height: 16vh;
+    cursor: pointer;
+}
+.user-detail-box{
+    width: 100%;
+    height: 5vh;
+    background-color: rgba(44, 43, 43, 0.13);
+    display: flex;
+    align-items: center;
+}

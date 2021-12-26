@@ -1,13 +1,7 @@
-import AceticAcid from './acetic-acid.jpg'
-import SodiumCarbonate from './sodium-carbonate.jpg'
-import SodiumHydroxide from './sodium-hydroxide.jpg'
-import LogoFlat from './logoflat.png'
-import WeChat from './wechat.jpeg'
+import about from './about.jpg'
+import contact from './contact.jpg'
 
 export {
-    AceticAcid,
-    SodiumCarbonate,
-    SodiumHydroxide,
-    LogoFlat,
-    WeChat
+    about,
+    contact
 }

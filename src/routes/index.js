@@ -1,22 +1,35 @@
 import React from 'react'
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import {
+  Home,
+  Login,
+  Register,
+  Dashboard,
+  WorkSpaces,
+  WorkSpacePage,
+  CreateWorkSpace,
+  Sessions,
   Users,
   Queries,
   SubAdmin,
-  AdminLogin,
-  AddSubAdmin
+  AddSubAdmin,
 } from "@pages"
 
 function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<Users />} />
+        <Route path="/" element={<Home />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/work-spaces" element={<WorkSpaces />} />
+        <Route path="/work-space/:id" element={<WorkSpacePage />} />
+        <Route path="/create-work-space" element={<CreateWorkSpace />} />
+        <Route path="/sessions" element={<Sessions />} />
         <Route path="/admin" element={<Users />} />
         <Route path="/admin/queries" element={<Queries />} />
         <Route path="/admin/sub-admin" element={<SubAdmin />} />
-        <Route path="/admin/login" element={<AdminLogin />} />
         <Route path="/admin/add-sub-admin" element={<AddSubAdmin />} />
       </Routes>
     </Router>

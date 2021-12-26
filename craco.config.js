@@ -9,6 +9,7 @@ module.exports = {
         source: "options",
         baseUrl: "./",
         aliases: {
+          "@assets": path.resolve(__dirname, "./src/assets"),
           "@routes": path.resolve(__dirname, "./src/routes"),
           "@pages": path.resolve(__dirname, "./src/pages"),
           "@components": path.resolve(__dirname, "./src/components"),

@@ -1,0 +1,16 @@
+.landing-section-1{
+    background-image: url('../../../assets/landing_bg.jpg');
+    height: 80vh;
+    width: 100%;
+    background-size: cover;
+}
+.landing-section-2{
+    min-height: 70vh;
+    width: 100%
+}
+.landing-right{
+    height: 70vh
+}
+.landing-section-3{
+    height: 30vh;
+}

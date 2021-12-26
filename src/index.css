@@ -11,3 +11,50 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.top-section{
+  background-image: url('./assets/landing_bg.jpg');
+  height: 60vh;
+  width: 100%;
+  background-size: cover;
+}
+
+.layer{
+  background-color: rgba(0, 0, 0, 0.8);
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.layer h1{
+  color: white;
+}
+.layer h4{
+  color: white;
+  font-weight: lighter;
+}
+.layer p{
+  color: white;
+  font-weight: lighter;
+}
+.layer button:hover{
+  color: white;
+  background-color: transparent;
+}
+
+.input{
+  border: none !important;
+  box-shadow: 2px 2px 5px 0px rgba(0,0,0,0.1);
+  height: 5vh;
+}
+.ant-layout-sider-trigger {
+  /* background: #1890ff !important; */
+  background: #007bff !important;
+}
+
+.ant-select-selector {
+  background-color: white !important;
+  border: none !important;
+}
