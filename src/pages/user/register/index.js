@@ -1,11 +1,37 @@
 import React from 'react'
-import { Form, Input } from 'antd';
+import { Form, Input, message } from 'antd';
+import { useNavigate } from 'react-router'
 import { CommonLayout } from '@components'
+import { http } from '@services'
 
 export default function Register() {
 
+    const navigate = useNavigate()
+
+    async function register(values) {
+
+        const url = `user/POST/register`;
+
+        const options = {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(values),
+        };
+
+        const response = await http(url, options);
+
+        if (response?.success) {
+            message.success(response.message)
+            navigate('/login')
+        }
+
+        else message.error('Something went wrong');
+
+    }
+
     const onFinish = (values) => {
         console.log('Success:', values);
+        register(values);
     };
 
     return (

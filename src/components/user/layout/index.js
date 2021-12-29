@@ -1,10 +1,10 @@
 import React from 'react'
 import { Layout } from 'antd';
 import { useNavigate } from 'react-router'
-import SiderComponent from '../sider'
-import HeaderComponent from '../header'
-import ContentComponent from '../content'
-import FooterComponent from '../footer'
+import SiderComponent from './sider'
+import HeaderComponent from './header'
+import ContentComponent from './content'
+import FooterComponent from './footer'
 
 export default function LayoutComponent({ children }) {
 

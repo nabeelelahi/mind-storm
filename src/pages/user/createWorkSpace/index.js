@@ -1,6 +1,8 @@
-import React from 'react'
-import { Form, Input, Select } from 'antd';
+import React, { useState, useEffect } from 'react'
+import { Form, Input, Select, message } from 'antd';
 import { Layout } from '@components'
+import { getUser } from '@helpers'
+import { http } from '@services'
 import "./createWorkSpace.css"
 
 const { Option } = Select
@@ -8,9 +10,37 @@ const { Option } = Select
 
 export default function CreateWorkSpace() {
 
+    const [user, setUser] = useState(null)
+
+    useEffect(() => {
+        setUser(getUser())
+    },[])
+
+    async function postWorkSpace(values) {
+
+        const url = `user/POST/create-work-space/${user?._id}`;
+
+        const options = {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(values),
+        };
+
+        const response = await http(url, options);
+
+        if (response?.success) {
+            message.success(response.message);
+        }
+
+        else message.error('Something went wrong');
+
+    }
+
     const onFinish = (values) => {
         console.log('Success:', values);
+        postWorkSpace(values)
     };
+
 
     return (
         <Layout>
@@ -34,7 +64,7 @@ export default function CreateWorkSpace() {
                             >
                                 <Input className="input" />
                             </Form.Item>
-                            <Form.Item
+                            {/* <Form.Item
                                 label="Category"
                                 name="category"
                                 rules={[{ required: true, message: 'Please input your phone!' }]}
@@ -45,7 +75,7 @@ export default function CreateWorkSpace() {
                                     <Option value="MNO">MNO</Option>
                                     <Option value="GHI">GHI</Option>
                                 </Select>
-                            </Form.Item>
+                            </Form.Item> */}
                             <Form.Item
                                 label="Discription"
                                 name="discription"

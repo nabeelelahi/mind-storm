@@ -6,7 +6,8 @@ import {
   FieldTimeOutlined,
   FolderAddOutlined,
   LogoutOutlined
- } from '@ant-design/icons'; 
+ } from '@ant-design/icons';
+ import { logout } from '@helpers' 
 
 const { Sider } = Layout;
 
@@ -28,6 +29,11 @@ export default function SiderComponent({ navigate }) {
       setCollapsed(false)
     }
 
+  }
+
+  function onLogout(){
+    logout()
+    navigate('/')
   }
 
   useEffect(() => {
@@ -76,6 +82,14 @@ export default function SiderComponent({ navigate }) {
             My Work Spaces
           </Menu.Item>
           <Menu.Item
+            key="18"
+            className="fw-bold text-secondary"
+            icon={<FileWordOutlined />}
+            onClick={() => navigate('/joined-work-spaces') }
+            >
+            Joinded Work Spaces
+          </Menu.Item>
+          <Menu.Item
             key="15"
             className="fw-bold text-secondary"
             icon={<FieldTimeOutlined />}
@@ -95,6 +109,7 @@ export default function SiderComponent({ navigate }) {
             key="3"
             className="fw-bold text-secondary"
             icon={<LogoutOutlined />}
+            onClick={onLogout}
           >
             Log out
           </Menu.Item>

@@ -11,6 +11,7 @@ import Dashboard from './user/dashboard'
 import WorkSpaces from './user/workSpaces'
 import WorkSpacePage from './user/workSpacePage'
 import CreateWorkSpace from './user/createWorkSpace'
+import JoinedWorkSpaces from './user/joinedWorkSpaces'
 import Sessions from './user/sessions'
 
 export {
@@ -27,5 +28,6 @@ export {
     WorkSpaces,
     WorkSpacePage,
     CreateWorkSpace,
+    JoinedWorkSpaces,
     Sessions
 }

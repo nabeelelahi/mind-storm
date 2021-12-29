@@ -2,7 +2,7 @@
 import AdminLayout from "./admin/adminLayout";
 // user
 import Layout from "./user/layout";
-import Login from "./user/login";
+import JoinWorkSpaceModal from "./user/modals/joinWorkSpace";
 // common
 import Loader from "./common/loader";
 import CommonLayout from "./common/layout";
@@ -10,7 +10,7 @@ import CommonLayout from "./common/layout";
 export { 
     AdminLayout,
     Layout,
-    Login,
+    JoinWorkSpaceModal,
     CommonLayout,
     Loader,
 }

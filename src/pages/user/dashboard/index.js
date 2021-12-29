@@ -1,14 +1,18 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { Layout } from '@components'
 import { workSpace } from '@config'
+import { getUser } from '@helpers'
 import { Row, Col } from 'antd'
 import './dashboard.css'
 
 export default function Dashboard() {
 
-    const onFinish = (values) => {
-        console.log('Success:', values);
-    };
+    const [user, setUser] = useState(null)
+
+    useEffect(() => {
+        setUser(getUser())
+        console.log(user)
+    },[])
 
     return (
         <Layout>
@@ -33,7 +37,7 @@ export default function Dashboard() {
                             </div>
                         </div>
                         <div className="col-lg-4 d-flex flex-column justify-content-center">
-                        <h3 className="mb-3 text-start text-secondary">Profile Details</h3>
+                            <h3 className="mb-3 text-start text-secondary">Profile Details</h3>
                             <div className='bg-white w-100 mh-75 shadow d-flex flex-column align-items-center justify-content-evenly py-3'>
                                 <img src="http://projects.websetters.in/digg-seos/digg/wp-content/themes/twentytwenty-child-theme/img/demo-prof.jpg"
                                     class="img-thumbnail rounded-circle w-50"
@@ -43,19 +47,19 @@ export default function Dashboard() {
                                     <div className="col-12">
                                         <p className="text-secondary">Name</p>
                                         <div className="user-detail-box rounded px-1 pt-2">
-                                            <h6>Dummy User 1</h6>
+                                            <h6>{user?.name}</h6>
                                         </div>
                                     </div>
                                     <div className="col-12">
                                         <p className="text-secondary">Email</p>
                                         <div className="user-detail-box rounded px-1 pt-2">
-                                            <h6>Dummy@gmail.com</h6>
+                                            <h6>{user?.email}</h6>
                                         </div>
                                     </div>
                                     <div className="col-12">
                                         <p className="text-secondary">Phone</p>
                                         <div className="user-detail-box rounded px-1 pt-2">
-                                            <h6>0340xxxxxxx</h6>
+                                            <h6>{user?.phone}</h6>
                                         </div>
                                     </div>
                                 </div>

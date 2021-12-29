@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react'
 import { Table, message } from 'antd';
-import { Layout } from '@components'
+import { PlusOutlined } from '@ant-design/icons';
+import { Layout, JoinWorkSpaceModal } from '@components'
 import { workSpace } from '@config'
 import { getUser } from '@helpers'
 import { http } from '@services'
-import './workSpaces.css'
 
 const columns = [
   {
@@ -14,7 +14,7 @@ const columns = [
   },
   {
     title: 'No of Particpants',
-    dataIndex: 'noOfParticpants',
+    dataIndex: 'noOfParticipants',
     key: 'noOfParticpants',
   },
   {
@@ -22,12 +22,13 @@ const columns = [
     dataIndex: 'noOfSessions',
     key: 'noOfSessions',
   },
-]; 
+];
 
-export default function WorkSpaces() {
+export default function JoinedWorkSpaces() {
 
   const [user, setUser] = useState(null)
   const [workSpaces, setWorkSpaces] = useState(null)
+  const [visible, setVisible] = useState(false)
 
   useEffect(() => {
     setUser(getUser())
@@ -35,13 +36,13 @@ export default function WorkSpaces() {
   }, [])
 
   async function getWorkSpaces() {
-    
-    const url = `user/GET/work-space/${user._id}`;
+
+    const url = `user/GET/joined-workspace/${user.email}`;
 
     const response = await http(url);
 
+    console.log(response.info)
     if (response?.success) {
-      console.log(response.info)
       setWorkSpaces(response.info)
     }
     else {
@@ -66,6 +67,19 @@ export default function WorkSpaces() {
           </div>
         </div>
       </div>
+      <div className="position-absolute bottom-0 end-0">
+        <button
+          class="btn btn-primary rounded-pill d-flex align-items-center p-3 px-5 my-2"
+          onClick={() => setVisible(true)}
+        >
+          <PlusOutlined />
+          <span className="ms-2">Join new Workspace</span>
+        </button>
+      </div>
+      <JoinWorkSpaceModal
+        visible={visible}
+        setVisible={setVisible}
+      />
     </Layout>
   )
 }

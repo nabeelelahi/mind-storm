@@ -3,8 +3,8 @@ import { BASE_URL } from '@constants'
 
 const http = async (url, options) => {
   try {
-    let response 
-    
+    let response
+
     if(!options) response = await fetch(`${BASE_URL}/${url}`);
 
     if(options) response = await fetch(`${BASE_URL}/${url}`, options);
@@ -17,5 +17,6 @@ const http = async (url, options) => {
       console.log(err)
     }
   }
+
 
 export default http

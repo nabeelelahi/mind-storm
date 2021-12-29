@@ -8,6 +8,7 @@ import {
   WorkSpaces,
   WorkSpacePage,
   CreateWorkSpace,
+  JoinedWorkSpaces,
   Sessions,
   Users,
   Queries,
@@ -25,6 +26,7 @@ function App() {
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/work-spaces" element={<WorkSpaces />} />
         <Route path="/work-space/:id" element={<WorkSpacePage />} />
+        <Route path="/joined-work-spaces" element={<JoinedWorkSpaces />} />
         <Route path="/create-work-space" element={<CreateWorkSpace />} />
         <Route path="/sessions" element={<Sessions />} />
         <Route path="/admin" element={<Users />} />

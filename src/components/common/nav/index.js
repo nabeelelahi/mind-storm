@@ -1,6 +1,10 @@
 import React from 'react'
+import { useNavigate } from 'react-router'
 
 export default function Navbar() {
+
+    const navigate = useNavigate()
+
     return (
         <nav className="navbar navbar-expand-lg navbar-dark bg-primary">
             <div className="container d-flex justify-content-between">
@@ -15,7 +19,10 @@ export default function Navbar() {
                         <a className="nav-link active" href="#contact">Contact</a>
                     </div>
                 </div>
-                <a className="nav-link active btn btn-light text-primary px-4 rounded-pill">Login</a>
+                <a 
+                className="nav-link active btn btn-light text-primary px-4 rounded-pill"
+                onClick={() => navigate('/login')}
+                >Login</a>
             </div>
         </nav>
     )
