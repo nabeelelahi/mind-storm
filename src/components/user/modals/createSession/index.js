@@ -1,25 +1,27 @@
 import React, { useState, useEffect } from 'react'
 import { Modal, Form, Input, Button, message } from 'antd'
+import { useParams } from 'react-router'
 import { http } from '@services'
 import { getUser } from '@helpers'
 
-function JoinWorkSpaceModal({ visible, setVisible, getSessions }) {
+function CreateSessionModal({ visible, setVisible, getWorkSpaces }) {
 
     const [user, setUser] = useState(null)
+    
+    const [sessions, setSessions] = useState(null)
+
+    const { workspaceId } = useParams()
 
     useEffect(() => {
         setUser(getUser())
     }, [])
 
-    async function joinWorkSpace(values) {
+    async function createSession(values) {
 
-        values.userEmail = user.email
-        values.userName = user.name
-
-        const url = `user/PUT/join-workspace`;
+        const url = `user/POST/create-session`;
 
         const options = {
-            method: "PUT",
+            method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(values),
         };
@@ -28,8 +30,9 @@ function JoinWorkSpaceModal({ visible, setVisible, getSessions }) {
         console.log(response)
 
         if (response?.success) {
+            message.success(response.message)
             setVisible(false)
-            getSessions()
+            getWorkSpaces()
         }
 
         else message.error(response.message);
@@ -37,8 +40,10 @@ function JoinWorkSpaceModal({ visible, setVisible, getSessions }) {
     }
 
     const onFinish = (values) => {
-        console.log('success', values);
-        joinWorkSpace(values)
+        values.workSpaceId = workspaceId
+        values.userId = user?._id
+        console.log('creating session', values);
+        createSession(values)
     };
 
     return (
@@ -55,9 +60,9 @@ function JoinWorkSpaceModal({ visible, setVisible, getSessions }) {
                 layout='vertical'
             >
                 <Form.Item
-                    label="Work Space Id"
-                    name="_id"
-                    rules={[{ required: true, message: 'Please input Work Space Id!' }]}
+                    label="Session Name"
+                    name="name"
+                    rules={[{ required: true, message: 'Please input your Sessions name!' }]}
                 >
                     <Input />
                 </Form.Item>
@@ -71,4 +76,4 @@ function JoinWorkSpaceModal({ visible, setVisible, getSessions }) {
     )
 }
 
-export default JoinWorkSpaceModal
+export default CreateSessionModal

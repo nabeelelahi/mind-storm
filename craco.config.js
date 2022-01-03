@@ -17,6 +17,7 @@ module.exports = {
           "@constants": path.resolve(__dirname, "./src/constants"),
           "@services": path.resolve(__dirname, "./src/services"),
           "@helpers": path.resolve(__dirname, "./src/helpers"),
+          "@sections": path.resolve(__dirname, "./src/sections"),
         }
       }
     }

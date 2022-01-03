@@ -1,10 +1,18 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Form, Input } from 'antd';
 import { CommonLayout } from '@components'
 import { about, contact } from '@assets'
+import { useNavigate } from 'react-router';
+import { checkUser } from '@helpers'
 import './home.css'
 
 export default function Home() {
+
+    const navigate = useNavigate()
+
+    useEffect(() => {
+        checkUser(navigate)
+    },[])
 
     const onFinish = (values) => {
         console.log('Success:', values);
@@ -17,7 +25,10 @@ export default function Home() {
                     <h1> Welcome to Mind storm</h1>
                     <h4> Digital Platform for Brain Storming</h4>
                     <p>Sign up to get started</p>
-                    <button className="btn btn-light px-3 rounded-pill">Register</button>
+                    <button 
+                    className="btn btn-light px-3 rounded-pill"
+                    onClick={() => navigate('/register')}
+                    >Register</button>
                 </div>
             </div>
             <div id='about' className="landing-section-2 bg-white">
@@ -51,7 +62,11 @@ export default function Home() {
             </div>
             <div className="landing-section-3 bg-light d-flex flex-column justify-content-center align-items-center">
                 <h4 className="text-secondary my-3">Start Brainstorming now by signin up</h4>
-                <button type="button" class="btn btn-primary px-5 btn-lg rounded-pill">Register</button>
+                <button 
+                type="button" 
+                class="btn btn-primary px-5 btn-lg rounded-pill"
+                onClick={() => navigate('/register')}
+                >Register</button>
             </div>
             <div id='contact' className="landing-section-2 bg-white">
                 <div className="container">

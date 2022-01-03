@@ -57,4 +57,5 @@ code {
 .ant-select-selector {
   background-color: white !important;
   border: none !important;
+  height: 100%;
 }

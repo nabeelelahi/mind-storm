@@ -13,6 +13,8 @@ import WorkSpacePage from './user/workSpacePage'
 import CreateWorkSpace from './user/createWorkSpace'
 import JoinedWorkSpaces from './user/joinedWorkSpaces'
 import Sessions from './user/sessions'
+import BrainWriting from './user/brainWriting'
+import StarBursting from './user/starBursting'
 
 export {
     // admin
@@ -29,5 +31,7 @@ export {
     WorkSpacePage,
     CreateWorkSpace,
     JoinedWorkSpaces,
-    Sessions
+    Sessions,
+    BrainWriting,
+    StarBursting
 }

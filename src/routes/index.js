@@ -10,6 +10,8 @@ import {
   CreateWorkSpace,
   JoinedWorkSpaces,
   Sessions,
+  BrainWriting,
+  StarBursting,
   Users,
   Queries,
   SubAdmin,
@@ -28,7 +30,9 @@ function App() {
         <Route path="/work-space/:id" element={<WorkSpacePage />} />
         <Route path="/joined-work-spaces" element={<JoinedWorkSpaces />} />
         <Route path="/create-work-space" element={<CreateWorkSpace />} />
-        <Route path="/sessions" element={<Sessions />} />
+        <Route path="/sessions/:workspaceId" element={<Sessions />} />
+        <Route path="/session/brain-writing/:id" element={<BrainWriting />} />
+        <Route path="/session/star-bursting/:id" element={<StarBursting />} />
         <Route path="/admin" element={<Users />} />
         <Route path="/admin/queries" element={<Queries />} />
         <Route path="/admin/sub-admin" element={<SubAdmin />} />

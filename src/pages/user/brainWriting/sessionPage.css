@@ -1,0 +1,90 @@
+.session-section {
+    min-height: 70vh;
+}
+
+.right-container {
+    height: 65vh;
+    overflow-y: auto;
+}
+
+.notes-container {
+    height: 67.5vh;
+    overflow-x: hidden;
+}
+
+.post-input {
+    width: 90%;
+    height: 7vh;
+    padding-left: 1vw;
+    padding-right: 1vw;
+}
+
+input:focus {
+    border: none !important;
+}
+
+.chat-container {
+    height: 70vh;
+    overflow-y: auto;
+}
+
+.messages {
+    height: 90%;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    overflow-y: auto;
+}
+
+.send-message {
+    height: 10%;
+}
+
+.chat-input {
+    height: 100%;
+    width: 80%;
+}
+
+.chat-btn {
+    height: 95%;
+    width: 18%;
+    margin-left: 2%;
+}
+
+.there-bubble {
+    border-radius: 10px 2px 10px 10px;
+    max-width: 75%;
+    min-width: 40%;
+}
+
+.my-bubble {
+    border-radius: 2px 10px 10px 10px;
+    max-width: 75%;
+    min-width: 40%;
+}
+
+.answer-input {
+    width: 52.5%;
+    height: 6vh;
+}
+
+.answer-input input {
+    height: 6vh;
+}
+
+.answer-select {
+    width: 30%;
+    height: 6vh;
+}
+.sellect{
+    height: 6vh;
+}
+.btn-box{
+    height: 6vh;
+    width: 10%;
+}
+
+.poster{
+    height: 6vh;
+    width: 100%;
+}

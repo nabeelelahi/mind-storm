@@ -84,18 +84,10 @@ export default function SiderComponent({ navigate }) {
           <Menu.Item
             key="18"
             className="fw-bold text-secondary"
-            icon={<FileWordOutlined />}
+            icon={<FieldTimeOutlined />}
             onClick={() => navigate('/joined-work-spaces') }
             >
             Joinded Work Spaces
-          </Menu.Item>
-          <Menu.Item
-            key="15"
-            className="fw-bold text-secondary"
-            icon={<FieldTimeOutlined />}
-            onClick={() => navigate('/sessions') }
-            >
-            Sessions
           </Menu.Item>
           <Menu.Item
             key="2"
