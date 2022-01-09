@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react'
-import { Table, message } from 'antd';
+import { Table, message, Tag } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
 import { Layout, JoinWorkSpaceModal } from '@components'
 import { useNavigate } from 'react-router';
 import { workSpace } from '@config'
 import { getUser } from '@helpers'
 import { http } from '@services'
+import { BASE_URL } from '@constants'
 
 export default function JoinedWorkSpaces() {
 
@@ -37,11 +38,50 @@ export default function JoinedWorkSpaces() {
     }
   }
 
+  async function leaveWorkSpace(values) {
+
+    values.participantId = user._id
+    values.participantEmail = user.email
+
+    const url = `user/DELETE/leave-workspace`;
+
+    const options = {
+        method: "DELETE",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(values),
+    };
+
+    const response = await http(url, options);
+
+    if (response?.success) {
+        message.info(response.message);
+        getWorkSpaces()
+    }
+
+    else message.error('Something went wrong');
+
+}
+
   const columns = [
+    {
+      title: '',
+      dataIndex: 'file',
+      key: 'file',
+      render: (text, record) => (
+        <img
+          style={{ height: '12.5vh', width: '10vw', cursor: 'pointer' }}
+          src={`${BASE_URL}/${text}`}
+          onClick={() => navigate(`/sessions/${record._id}`)}
+        />
+      )
+    },
     {
       title: 'Work Space Name',
       dataIndex: 'name',
       key: 'name',
+      render: (text, record) => (
+        <a onClick={() => navigate(`/work-space/${record._id}`, { state: record})}>{text}</a>
+      )
     },
     {
       title: 'No of Particpants',
@@ -54,6 +94,14 @@ export default function JoinedWorkSpaces() {
       key: 'noOfSessions',
       render: (text, record) => (
         <a onClick={() => navigate(`/sessions/${record._id}`, { state: record})}>{text}</a>
+      )
+    },
+    {
+      title: 'Actions',
+      dataIndex: '_id',
+      key: 'actions',
+      render: (text, record) => (
+        <Tag style={{cursor: 'pointer'}} color='red' onClick={() => leaveWorkSpace(record)}>{"LEAVE"}</Tag>
       )
     },
   ];
@@ -87,7 +135,7 @@ export default function JoinedWorkSpaces() {
       <JoinWorkSpaceModal
         visible={visible}
         setVisible={setVisible}
-        getWorkSpaces={getWorkSpaces()}
+        getWorkSpaces={getWorkSpaces}
       />
     </Layout>
   )

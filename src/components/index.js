@@ -4,6 +4,7 @@ import AdminLayout from "./admin/adminLayout";
 import Layout from "./user/layout";
 import JoinWorkSpaceModal from "./user/modals/joinWorkSpace";
 import CreateSessionModal from "./user/modals/createSession";
+import UpdateProfilePic from "./user/modals/updateProfilePic";
 // common
 import Loader from "./common/loader";
 import CommonLayout from "./common/layout";
@@ -13,6 +14,7 @@ export {
     Layout,
     JoinWorkSpaceModal,
     CreateSessionModal,
+    UpdateProfilePic,
     CommonLayout,
     Loader,
 }

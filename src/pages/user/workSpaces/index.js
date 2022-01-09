@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react'
-import { Table, message } from 'antd';
+import { Table, message, Tag, Avatar } from 'antd';
 import { useNavigate } from 'react-router'
 import { Layout } from '@components'
-import { workSpace } from '@config'
 import { getUser } from '@helpers'
 import { http } from '@services'
+import { BASE_URL } from '@constants'
 import './workSpaces.css'
 
 export default function WorkSpaces() {
@@ -25,6 +25,18 @@ export default function WorkSpaces() {
 
   const columns = [
     {
+      title: '',
+      dataIndex: 'file',
+      key: 'file',
+      render: (text, record) => (
+        <img
+          style={{ height: '12.5vh', width: '10vw', cursor: 'pointer' }}
+          src={`${BASE_URL}/${text}`}
+          onClick={() => navigate(`/sessions/${record._id}`)}
+        />
+      )
+    },
+    {
       title: 'Code',
       dataIndex: '_id',
       key: '_id',
@@ -33,6 +45,9 @@ export default function WorkSpaces() {
       title: 'Work Space Name',
       dataIndex: 'name',
       key: 'name',
+      render: (text, record) => (
+        <a onClick={() => navigate(`/work-space/${record._id}`, { state: record })}>{text}</a>
+      )
     },
     {
       title: 'No of Particpants',
@@ -44,7 +59,15 @@ export default function WorkSpaces() {
       dataIndex: 'noOfSessions',
       key: 'noOfSessions',
       render: (text, record) => (
-        <a onClick={() => navigate(`/sessions/${record._id}`, { state: record})}>{text}</a>
+        <a onClick={() => navigate(`/sessions/${record._id}`, { state: record })}>{text}</a>
+      )
+    },
+    {
+      title: 'Actions',
+      dataIndex: '_id',
+      key: 'actions',
+      render: (text, record) => (
+        <Tag style={{cursor: 'pointer'}} color='red' onClick={() => deleteWorkSpace(record)}>{"DELETE"}</Tag>
       )
     },
   ];
@@ -62,6 +85,27 @@ export default function WorkSpaces() {
     else {
       message.error(response.message);
     }
+  }
+
+  async function deleteWorkSpace(values) {
+
+    const url = `user/DELETE/workSpace`;
+
+    const options = {
+      method: "DELETE",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(values),
+    };
+
+    const response = await http(url, options);
+
+    if (response?.success) {
+      message.info(response.message);
+      getWorkSpaces()
+    }
+
+    else message.error('Something went wrong');
+
   }
 
   return (

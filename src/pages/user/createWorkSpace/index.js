@@ -12,21 +12,31 @@ export default function CreateWorkSpace() {
 
     const [user, setUser] = useState(null)
 
+    const [file, setFile] = useState(null)
+
     useEffect(() => {
         setUser(getUser())
-    },[])
+    }, [])
 
     async function postWorkSpace(values) {
 
+
+        const form = new FormData()
+
+        form.append('file', file)
+        form.append('name', values.name)
+        form.append('discription', values.discription)
+        
         const url = `user/POST/create-work-space/${user?._id}`;
 
         const options = {
             method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(values),
+            body: form,
         };
 
         const response = await http(url, options);
+
+        console.log(response)
 
         if (response?.success) {
             message.success(response.message);
@@ -37,7 +47,6 @@ export default function CreateWorkSpace() {
     }
 
     const onFinish = (values) => {
-        console.log('Success:', values);
         postWorkSpace(values)
     };
 
@@ -64,18 +73,14 @@ export default function CreateWorkSpace() {
                             >
                                 <Input className="input" />
                             </Form.Item>
-                            {/* <Form.Item
-                                label="Category"
-                                name="category"
-                                rules={[{ required: true, message: 'Please input your phone!' }]}
+                            <Form.Item
+                                label="Image"
+                                name="file"
+                                rules={[{ required: true, message: 'Please input your name!' }]}
+                                onChange={(e) => setFile(e.target.files[0])}
                             >
-                                <Select defaultValue="XYZ" className="input">
-                                    <Option value="XYZ">XYZ</Option>
-                                    <Option value="ABC">ABC</Option>
-                                    <Option value="MNO">MNO</Option>
-                                    <Option value="GHI">GHI</Option>
-                                </Select>
-                            </Form.Item> */}
+                                <input type="file" className="input" />
+                            </Form.Item>
                             <Form.Item
                                 label="Discription"
                                 name="discription"

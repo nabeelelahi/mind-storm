@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { useLocation } from 'react-router';
+import { useLocation, useNavigate } from 'react-router';
 import { Form, Avatar, Menu, message, Select } from 'antd';
 import { MailOutlined, AppstoreOutlined, CloseOutlined } from '@ant-design/icons';
 import { Layout } from '@components'
@@ -21,6 +21,8 @@ const questions = ['What', 'Why', 'Who', 'Where', 'When', 'How']
 export default function StarBursting() {
 
     const location = useLocation()
+
+    const navigate = useNavigate()
 
     const sessionDetails = location.state
 
@@ -52,6 +54,7 @@ export default function StarBursting() {
         createConnection()
         getSocketAnswers()
         getChats()
+        console.log(sessionDetails)
     }, [])
 
     function createConnection() {
@@ -182,7 +185,7 @@ export default function StarBursting() {
         console.log(response);
 
         if (response?.success) {
-            // getAnswers()
+            navigate(`/sessions/${sessionDetails.workSpaceId}`)
         }
 
         else message.error('Something went wrong');

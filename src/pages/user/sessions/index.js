@@ -87,7 +87,7 @@ export default function Sessions() {
             <CreateSessionModal
                 visible={visible}
                 setVisible={setVisible}
-                getSessions={getSessions()}
+                getSessions={getSessions}
             />
         </Layout>
     )

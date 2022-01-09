@@ -1,9 +1,10 @@
 import React, { useEffect } from 'react'
-import { Form, Input } from 'antd';
+import { Form, Input, message } from 'antd';
 import { CommonLayout } from '@components'
 import { about, contact } from '@assets'
 import { useNavigate } from 'react-router';
 import { checkUser } from '@helpers'
+import { http } from '@services'
 import './home.css'
 
 export default function Home() {
@@ -16,7 +17,28 @@ export default function Home() {
 
     const onFinish = (values) => {
         console.log('Success:', values);
+        sendQuery(values)
     };
+
+    async function sendQuery(values) {
+
+        const url = `user/POST/query`;
+
+        const options = {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(values),
+        };
+
+        const response = await http(url, options);
+
+        if (response?.success) {
+            message.success(response.message);
+        }
+
+        else message.error('Something went wrong');
+
+    }
 
     return (
         <CommonLayout>
@@ -79,11 +101,7 @@ export default function Home() {
                             <Form
                                 name="basic"
                                 layout="vertical"
-                                initialValues={{
-                                    remember: true,
-                                }}
                                 onFinish={onFinish}
-                                autoComplete="off"
                             >
                                 <div className="row">
                                     <div className='col-lg-6 col-12'>
@@ -164,7 +182,7 @@ export default function Home() {
                                         span: 16,
                                     }}
                                 >
-                                    <button type="button" class="btn btn-primary px-5 rounded-pill">Submit</button>
+                                    <button type="submit" class="btn btn-primary px-5 rounded-pill">Submit</button>
                                 </Form.Item>
                             </Form>
                         </div>

@@ -1,100 +1,84 @@
-import React, { useState } from 'react'
-import { Col, Row, Form, Input, Button, message } from 'antd'
-import { useNavigate } from 'react-router'
-import { http } from '@services';
-import './loginSectionStyles.css'
+import React from 'react'
+import { Form, Input, message } from 'antd';
+import { CommonLayout } from '@components'
+import { http } from '@services'
+import { useNavigate } from 'react-router';
 
-export default function AdminLogin() {
+export default function Login() {
 
     const navigate = useNavigate()
 
-    const [loading, setLoading] = useState(false)
-
-    const onFinish = values => {
-        setLoading(true)
-        login(values)
-    };
-
     async function login(values) {
-        
-        const url = `admin/login`;
+        const url = `admin/GET/login/${values.email}/${values.password}`;
 
-        const options = {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(values),
-        };
-
-        const response = await http(url, options);
+        const response = await http(url);
 
         if (response?.success) {
             const data = JSON.stringify(response.info)
-            sessionStorage.setItem("user", data)
-            setLoading(false)
-            message.success("Loged in successfully")
+            sessionStorage.setItem("admin", data)
+            message.success('Login successful')
             navigate("/admin")
         }
         else {
             message.error("Username or Password is incorrect");
-            setLoading(false)
         }
     }
-
+    
+    const onFinish = (values) => {
+        console.log('Success:', values);
+        login(values);
+    };
 
     return (
-        <div id="admin-login-background" style={{ height: window.innerHeight }}>
-            <div className="login-layer">
-                <Row>
-                    <Col lg={9} md={12} sm={6} xs={1} />
-                    <Col lg={6} md={12} sm={6} xs={22} >
-                        <div className="login-card">
-                            <h1 className="login-head">Log In</h1>
-                            <Form
-                                name="basic"
-                                layout="vertical"
-                                initialValues={{
-                                    remember: true
-                                }}
-                                onFinish={onFinish}
-                            >
-                                <Form.Item
-                                    label="Email"
-                                    name="email"
-                                    rules={[
-                                        {
-                                            required: true,
-                                            message: 'Please input your username!'
-                                        }
-                                    ]}
-                                >
-                                    <Input />
-                                </Form.Item>
-
-                                <Form.Item
-                                    label="Password"
-                                    name="password"
-                                    rules={[
-                                        {
-                                            required: true,
-                                            message: 'Please input your password!'
-                                        }
-                                    ]}
-                                >
-                                    <Input.Password />
-                                </Form.Item>
-
-                                <Form.Item>
-                                    <Button loading={loading} type="primary" htmlType="submit" block>
-                                        Log In
-                                    </Button>
-                                </Form.Item>
-                            </Form>
-                        </div>
-                    </Col>
-                    <Col lg={3} md={12} sm={6} xs={1} />
-                </Row>
+        <CommonLayout>
+            <div className="top-section">
+                <div className="layer">
+                </div>
             </div>
-        </div>
+            <div className="login-section w-100 bg-white">
+                <div className="container d-flex justify-content-center">
+                    <div className="bg-light shadow login-card d-flex flex-column justify-content-center align-items-center">
+                        <div className="text-center">
+                            <h3 className="text-primary">Login</h3>
+                            <p className="text-secondary">Login if you already have an account</p>
+                        </div>
+                        <Form
+                            name="basic"
+                            onFinish={onFinish}
+                            autoComplete="off"
+                            layout='vertical'
+                            className="w-50"
+                        >
+                            <Form.Item
+                                label="Email"
+                                name="email"
+                                rules={[{ type: 'email', required: true, message: 'Please input your username!' }]}
+                            >
+                                <Input className="input" />
+                            </Form.Item>
+
+                            <Form.Item
+                                label="Password"
+                                name="password"
+                                rules={[{ required: true, message: 'Please input your password!' }]}
+                            >
+                                <Input.Password className="input" />
+                            </Form.Item>
+
+                            <Form.Item>
+                                <button
+                                    className="px-4 btn btn-primary rounded-pill"
+                                    type="primary"
+                                    htmlType="submit"
+                                >
+                                    Submit
+                                </button>
+                            </Form.Item>
+                        </Form>
+                    </div>
+                </div>
+            </div>
+        </CommonLayout>
     )
 }
 

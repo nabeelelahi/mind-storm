@@ -1,4 +1,5 @@
 // Admin 
+import AdminLogin from "./admin/login"
 import Users from "./admin/users"
 import Queries from './admin/queries'
 import SubAdmin from './admin/subAdmins'
@@ -15,9 +16,12 @@ import JoinedWorkSpaces from './user/joinedWorkSpaces'
 import Sessions from './user/sessions'
 import BrainWriting from './user/brainWriting'
 import StarBursting from './user/starBursting'
+import Profile from './user/profile'
+import EditProfile from './user/editProfile'
 
 export {
     // admin
+    AdminLogin,
     Users,
     Queries,
     SubAdmin,
@@ -33,5 +37,7 @@ export {
     JoinedWorkSpaces,
     Sessions,
     BrainWriting,
-    StarBursting
+    StarBursting,
+    Profile,
+    EditProfile
 }

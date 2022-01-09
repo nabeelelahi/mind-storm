@@ -10,33 +10,13 @@ export default function SubAdmin() {
 
     const navigate = useNavigate()
 
-    const [users, setUsers] = useState(null)
-
-    
-  const dataSource = [
-    {
-      key: '1',
-      id: '1',
-      name: 'Hamze',
-      email: 'hamzay@gmail.com',
-      phone: '0312xxxxxxxx',
-      DoB: '16/10/20'
-    },
-    {
-      id: '2',
-      key: '2',
-      name: 'Areeb',
-      email: 'areeb@gmail.com',
-      phone: '0345xxxxxxxx',
-      DoB: '01/07/20'
-    },
-  ];
+    const [admins, setAdmins] = useState(null)
 
     const columns = [
         {
             title: 'Id',
-            dataIndex: 'id',
-            key: 'id',
+            dataIndex: '_id',
+            key: '_id',
         },
         {
             title: 'Name',
@@ -49,69 +29,21 @@ export default function SubAdmin() {
             dataIndex: 'email',
             key: 'email',
         },
-        {
-            title: 'Phone',
-            dataIndex: 'phone',
-            key: 'phone',
-        },
-        {
-            title: 'Date of Birth',
-            dataIndex: 'DoB',
-            key: 'DoB',
-        },
-        {
-            title: 'Action',
-            dataIndex: '_id',
-            key: 'action',
-            render: (text, record) => (
-                <Space size="middle">
-                    <Tag onClick={() => deleteUser(text)} color='red'>
-                        Delete
-                    </Tag>
-                </Space>
-            ),
-        },
     ];
 
-    async function deleteUser(text) {
-        const url = `admin/DELETE/user/${text}`;
-
-        const options = {
-            method: "DELETE",
-        };
-
-        const response = await http(url, options);
-
-        if (response?.success) {
-            message.info("User Deleted Successfully");
-            getUsers()
-        }
-    }
-
-    async function checkForAmin() {
-        let currentUser = await JSON.parse(sessionStorage.getItem("user"))
-
-        if (currentUser?.type !== "admin") navigate("/admin/login")
-    }
-
-    async function getUsers() {
-        const url = `admin/GET/users`;
+    async function getAdmins() {
+        
+        const url = `admin/GET/sub-admins`;
 
         const response = await http(url);
 
         if (response?.success) {
-            response?.users?.map((item) => (
-                item.key === String(item._id)
-            ))
-            setUsers(response.users);
-            console.log(response.users);
+            setAdmins(response.info);
         }
     }
 
-
     useEffect(() => {
-        // checkForAmin()
-        getUsers()
+        getAdmins()
     }, [])
 
     return (
@@ -121,7 +53,7 @@ export default function SubAdmin() {
                 : */}
                 <>
                     <Title className="admin-headings">Sub Admins</Title>
-                    <Table columns={columns} dataSource={dataSource} />
+                    <Table columns={columns} dataSource={admins} />
                 </>
             {/* } */}
         </AdminLayout>

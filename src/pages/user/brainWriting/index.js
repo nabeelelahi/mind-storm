@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useLocation, useNavigate } from 'react-router';
-import { Avatar, Menu, message } from 'antd';
+import { Avatar, Menu, message, notification } from 'antd';
 import { MailOutlined, AppstoreOutlined, StarOutlined } from '@ant-design/icons';
 import { Layout } from '@components'
 import { getUser } from '@helpers'
@@ -124,8 +124,22 @@ export default function SessionPage() {
 
     function checkStarBursting() {
         socket.current.on("checkStarBursting", (data) => {
+            openNotifications()
             if (data.starBursting) navigate(`/session/star-bursting/${sessionDetails._id}`, { state: sessionDetails })
         })
+    }
+
+    async function openNotifications() {
+        if (user && String(sessionDetails?.userId) !== String(user?._id)) {
+            notification.info({
+                message: 'Starting StarBursting',
+                description:
+                    'The notification has been turned to StarBursting by organizer.',
+                onClick: () => {
+                    console.log('Notification Clicked!');
+                },
+            })
+        }
     }
 
     function handleClick(e) {

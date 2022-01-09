@@ -16,6 +16,9 @@ import {
   Queries,
   SubAdmin,
   AddSubAdmin,
+  Profile,
+  EditProfile,
+  AdminLogin
 } from "@pages"
 
 function App() {
@@ -33,7 +36,10 @@ function App() {
         <Route path="/sessions/:workspaceId" element={<Sessions />} />
         <Route path="/session/brain-writing/:id" element={<BrainWriting />} />
         <Route path="/session/star-bursting/:id" element={<StarBursting />} />
+        <Route path="/profile" element={<Profile />} />
+        <Route path="/edit-profile" element={<EditProfile />} />
         <Route path="/admin" element={<Users />} />
+        <Route path="/admin/login" element={<AdminLogin />} />
         <Route path="/admin/queries" element={<Queries />} />
         <Route path="/admin/sub-admin" element={<SubAdmin />} />
         <Route path="/admin/add-sub-admin" element={<AddSubAdmin />} />

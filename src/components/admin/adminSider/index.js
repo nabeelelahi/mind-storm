@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { Layout, Menu } from 'antd';
 import { useNavigate } from 'react-router'
+import { checkAdmin, adminLogout } from '@helpers'
 import './siderStyle.css'
 
 const { Sider } = Layout;
@@ -28,6 +29,7 @@ export default function SiderComponent() {
     window.addEventListener('resize', updateDimensions);
 
     window.addEventListener('load', updateDimensions);
+    checkAdmin(navigate)
 
   }, [])
 
@@ -51,7 +53,12 @@ export default function SiderComponent() {
         <Menu.Item key="4" onClick={() => navigate('/admin/queries')}>
           Support Queries
         </Menu.Item>
-        <Menu.Item key="5">
+        <Menu.Item key="5"
+          onClick={() => {
+            adminLogout()
+            navigate('/')
+          }}
+        >
           Logout
         </Menu.Item>
       </Menu>

@@ -13,33 +13,11 @@ export default function Users() {
 
     const [users, setUsers] = useState(null)
 
-    
-  const dataSource = [
-    {
-      key: '1',
-      id: '1',
-      name: 'Hamze',
-      email: 'hamzay@gmail.com',
-      phone: '0312xxxxxxxx',
-      workSpace: 'Dummy Space',
-      DoB: '16/10/20'
-    },
-    {
-      id: '2',
-      key: '2',
-      name: 'Areeb',
-      email: 'areeb@gmail.com',
-      phone: '0345xxxxxxxx',
-      workSpace: 'Dummy Space',
-      DoB: '01/07/20'
-    },
-  ];
-
     const columns = [
         {
             title: 'Id',
-            dataIndex: 'id',
-            key: 'id',
+            dataIndex: '_id',
+            key: '_id',
         },
         {
             title: 'Name',
@@ -57,53 +35,10 @@ export default function Users() {
             dataIndex: 'phone',
             key: 'phone',
         },
-        {
-            title: 'Date of Birth',
-            dataIndex: 'DoB',
-            key: 'DoB',
-        },
-        {
-            title: 'Work Space',
-            dataIndex: 'workSpace',
-            key: 'workSpace',
-        },
-        {
-            title: 'Action',
-            dataIndex: '_id',
-            key: 'action',
-            render: (text, record) => (
-                <Space size="middle">
-                    <Tag onClick={() => deleteUser(text)} color='red'>
-                        Delete
-                    </Tag>
-                </Space>
-            ),
-        },
     ];
 
-    async function deleteUser(text) {
-        const url = `admin/DELETE/user/${text}`;
-
-        const options = {
-            method: "DELETE",
-        };
-
-        const response = await http(url, options);
-
-        if (response?.success) {
-            message.info("User Deleted Successfully");
-            getUsers()
-        }
-    }
-
-    async function checkForAmin() {
-        let currentUser = await JSON.parse(sessionStorage.getItem("user"))
-
-        if (currentUser?.type !== "admin") navigate("/admin/login")
-    }
-
     async function getUsers() {
-        const url = `admin/GET/users`;
+        const url = `admin/GET/all-users`;
 
         const response = await http(url);
 
@@ -111,14 +46,11 @@ export default function Users() {
             response?.users?.map((item) => (
                 item.key === String(item._id)
             ))
-            setUsers(response.users);
-            console.log(response.users);
+            setUsers(response.info);
         }
     }
 
-
     useEffect(() => {
-        // checkForAmin()
         getUsers()
     }, [])
 
@@ -129,7 +61,7 @@ export default function Users() {
                 : */}
                 <>
                     <Title className="admin-headings">Users</Title>
-                    <Table columns={columns} dataSource={dataSource} />
+                    <Table columns={columns} dataSource={users} />
                 </>
             {/* } */}
         </AdminLayout>

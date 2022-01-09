@@ -10,7 +10,7 @@ export default function Queries() {
 
     const navigate = useNavigate()
 
-    const [users, setUsers] = useState(null)
+    const [queries, setQueries] = useState(null)
 
     const queryMessage = `Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia,
     molestiae quas vel sint commodi repudiandae consequuntur voluptatum laborum
@@ -40,10 +40,14 @@ export default function Queries() {
 
     const columns = [
         {
-            title: 'Name',
-            dataIndex: 'name',
+            title: 'First Name',
+            dataIndex: 'firstName',
+            key: 'firstName',
+        },
+        {
+            title: 'Last Name',
+            dataIndex: 'lastName',
             key: 'name',
-            render: text => <a href="#">{text}</a>,
         },
         {
             title: 'Email',
@@ -57,30 +61,18 @@ export default function Queries() {
         },
     ];
 
-    async function checkForAmin() {
-        let currentUser = await JSON.parse(sessionStorage.getItem("user"))
-
-        if (currentUser?.type !== "admin") navigate("/admin/login")
-    }
-
-    async function getUsers() {
-        const url = `admin/GET/users`;
+    async function getQueries() {
+        const url = `admin/GET/sub-queries`;
 
         const response = await http(url);
 
         if (response?.success) {
-            response?.users?.map((item) => (
-                item.key === String(item._id)
-            ))
-            setUsers(response.users);
-            console.log(response.users);
+            setQueries(response.info);
         }
     }
 
-
     useEffect(() => {
-        // checkForAmin()
-        getUsers()
+        getQueries()
     }, [])
 
     return (
@@ -92,7 +84,7 @@ export default function Queries() {
                     <Title className="admin-headings">Support Queries</Title>
                     <Table 
                     columns={columns} 
-                    dataSource={dataSource}
+                    dataSource={queries}
                     expandable={{
                         expandedRowRender: record => <p style={{ margin: 0 }}>{record.message}</p>,
                       }}

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Form, Input, message } from 'antd';
 import { useNavigate } from 'react-router'
 import { CommonLayout } from '@components'
@@ -8,14 +8,23 @@ export default function Register() {
 
     const navigate = useNavigate()
 
+    const [file, setFile] = useState(null)
+
     async function register(values) {
+
+        const form = new FormData()
+
+        form.append('name', values.name)
+        form.append('email', values.email)
+        form.append('phone', values.phone)
+        form.append('password', values.password)
+        form.append('file', file)
 
         const url = `user/POST/register`;
 
         const options = {
             method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(values),
+            body: form,
         };
 
         const response = await http(url, options);
@@ -30,7 +39,6 @@ export default function Register() {
     }
 
     const onFinish = (values) => {
-        console.log('Success:', values);
         register(values);
     };
 
@@ -75,7 +83,17 @@ export default function Register() {
                             >
                                 <Input className="input" />
                             </Form.Item>
-
+                            <Form.Item
+                                label="Proile Image"
+                                name="file"
+                                rules={[{ required: true, message: 'Please select a profile image!' }]}
+                            >
+                                <input 
+                                type="file" 
+                                className="input"
+                                onChange={(e) => setFile(e.target.files[0])}
+                                 />
+                            </Form.Item>
                             <Form.Item
                                 label="Password"
                                 name="password"
