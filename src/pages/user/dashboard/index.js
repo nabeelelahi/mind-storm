@@ -14,17 +14,18 @@ export default function Dashboard() {
     const [workSpaces, setWorkSpaces] = useState(null)
 
     async function getWorkSpaces() {
+        if (user) {
+            const url = `user/GET/work-space/${user._id}`;
 
-        const url = `user/GET/work-space/${user._id}`;
+            const response = await http(url);
 
-        const response = await http(url);
-
-        console.log(response)
-        if (response?.success) {
-            setWorkSpaces(response.info)
-        }
-        else {
-            message.error(response.message);
+            console.log(response)
+            if (response?.success) {
+                setWorkSpaces(response.info)
+            }
+            else {
+                message.error(response.message);
+            }
         }
     }
 
@@ -42,14 +43,24 @@ export default function Dashboard() {
                             <h3 className="mb-3 text-start text-secondary">Work Spaces</h3>
                             {
                                 workSpaces ?
-                                    <div className="mh-75 w-100 rounded-3 bg-dark p-3">
+                                    <div className="dashboard-card-section h-100 w-100 rounded-3 bg-light border p-3 overflow-auto">
                                         <div className='row'>
                                             {
                                                 workSpaces?.map((item) => (
-                                                    <div key={item.key} className="col-lg-4">
-                                                        <div className='text-secondary workspace-card p-2 w-100 bg-white rounded-3 text-wrap'>
-                                                            <h4 className='text-primary'>{item.name}</h4>
-                                                            {item.discription}
+                                                    <div key={item.key} className="col-lg-12">
+                                                        <div className='text-secondary shadow workspace-card w-100 bg-white rounded-3 text-wrap my-2'>
+                                                            <div className='d-flex align-items-center h-100'>
+                                                                <img
+                                                                    className='img-thumbnail w-25 mx-2'
+                                                                    style={{ height: '15vh' }}
+                                                                    src={`${BASE_URL}/${item.file}`}
+                                                                    alt=''
+                                                                />
+                                                                <div className='mx-3'>
+                                                                    <h4 className='text-primary'>{item.name}</h4>
+                                                                    {item.discription}
+                                                                </div>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 ))
@@ -93,7 +104,7 @@ export default function Dashboard() {
                     </div>
                 </div>
             </div>
-        </Layout>
+        </Layout >
     )
 }
 

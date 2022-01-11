@@ -2,7 +2,7 @@
     min-height: 85vh;
 }
 .workspace-card{
-    min-height: 16vh;
+    height: 18vh;
     cursor: pointer;
 }
 .user-detail-box{
@@ -14,4 +14,8 @@
 }
 .dp{
     height: 25vh;
+}
+
+.dashboard-card-section{
+    max-height: 57vh;
 }

@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import { useLocation } from 'react-router';
 import { Avatar, message, Tag } from 'antd';
-import { Layout } from '@components'
+import { PlusOutlined } from '@ant-design/icons';
+import { Layout, AddParticipantModal } from '@components'
 import { http } from '@services'
 import { getUser } from '@helpers'
 
@@ -17,6 +18,8 @@ export default function WorkSpacePage() {
     const workSpaceDetails = location.state
 
     const [participants, setParticipants] = useState(null)
+    
+    const [visible, setVisible] = useState(false)
 
     const [user, setUser] = useState(null)
 
@@ -116,6 +119,23 @@ export default function WorkSpacePage() {
                     </div>
                 </div>
             </div>
+            {
+                workSpaceDetails?.userId === user?._id &&
+                <div className="position-absolute bottom-0 end-0">
+                    <button
+                        class="btn btn-dark rounded-pill d-flex align-items-center p-3 px-5 my-2"
+                        onClick={() => setVisible(true)} 
+                    >
+                        <PlusOutlined />
+                        <span className="ms-2">Add Particpants</span>
+                    </button>
+                </div>
+            }
+            <AddParticipantModal
+                visible={visible}
+                setVisible={setVisible}
+                workSpaceDetails={workSpaceDetails}
+            />
         </Layout >
     )
 }
