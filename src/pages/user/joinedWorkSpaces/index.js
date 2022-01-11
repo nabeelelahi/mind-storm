@@ -34,7 +34,7 @@ export default function JoinedWorkSpaces() {
       setWorkSpaces(response.info)
     }
     else {
-      message.error("Username or Password is incorrect");
+      message.error("Something went wrong");
     }
   }
 

@@ -25,7 +25,8 @@ function AddParticipantModal({ visible, setVisible, workSpaceDetails }) {
         console.log(response)
 
         if (response?.success) {
-            // setVisible(false)
+            message.success(response.message);
+            setVisible(false)
         }
 
         else message.error(response.message);

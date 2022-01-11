@@ -77,7 +77,6 @@ export default function WorkSpacePage() {
                         <div className="col-lg-5">
                             <h3 className="mb-3 text-start text-secondary">Particpants</h3>
                             <div className="shadow w-100 h-100 mb-5">
-                                <p className="mx-5 mt-3 text-secondary fs-6 w-75">Total Particpants: {workSpaceDetails.noOfParticipants}</p>
                                 <ul>
                                     {
                                         participants &&
