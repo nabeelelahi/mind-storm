@@ -51,6 +51,7 @@ function CreateSessionModal({ visible, setVisible, getWorkSpaces }) {
             visible={visible}
             title="Title"
             footer={[]}
+            onCancel={() => setVisible(false)}
         >
             <Form
                 name="basic"

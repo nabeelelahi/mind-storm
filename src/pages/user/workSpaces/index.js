@@ -29,11 +29,7 @@ export default function WorkSpaces() {
       dataIndex: 'file',
       key: 'file',
       render: (text, record) => (
-        <img
-          style={{ height: '12.5vh', width: '10vw', cursor: 'pointer' }}
-          src={`${BASE_URL}/${text}`}
-          onClick={() => navigate(`/sessions/${record._id}`)}
-        />
+        <Avatar size={64} src={`${BASE_URL}/${record.file}`} />
       )
     },
     {

@@ -1,19 +1,18 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useLocation, useNavigate } from 'react-router';
 import { Avatar, Menu, message, notification } from 'antd';
-import { MailOutlined, AppstoreOutlined, StarOutlined } from '@ant-design/icons';
+import {
+    MailOutlined,
+    AppstoreOutlined,
+    StarOutlined,
+    DeleteOutlined
+} from '@ant-design/icons';
 import { Layout } from '@components'
 import { getUser } from '@helpers'
 import { http } from '@services'
+import { BASE_URL } from '@constants'
 import { io } from 'socket.io-client';
-import { ParticpantSection, ChatSection, Notes } from '@sections'
-import { workSpace } from '@config'
 import "./sessionPage.css"
-
-const icon = <img
-    src='https://kleo.seventhqueen.com/wp-content/uploads/rtMedia/users/44269/2020/07/dummy-profile.png'
-    alt=''
-/>
 
 export default function SessionPage() {
 
@@ -70,6 +69,10 @@ export default function SessionPage() {
     function getSocketNotes() {
 
         socket.current.on("getNote", (data) => {
+            getNotes()
+        })
+
+        socket.current.on("getDeleteNote", (data) => {
             getNotes()
         })
 
@@ -130,16 +133,16 @@ export default function SessionPage() {
     }
 
     async function openNotifications() {
-        if (user && String(sessionDetails?.userId) !== String(user?._id)) {
-            notification.info({
-                message: 'Starting StarBursting',
-                description:
-                    'The notification has been turned to StarBursting by organizer.',
-                onClick: () => {
-                    console.log('Notification Clicked!');
-                },
-            })
-        }
+
+        notification.info({
+            message: 'Starting StarBursting',
+            description:
+                'The notification has been turned to StarBursting by organizer.',
+            onClick: () => {
+                console.log('Notification Clicked!');
+            },
+        })
+
     }
 
     function handleClick(e) {
@@ -210,6 +213,28 @@ export default function SessionPage() {
         }
     }
 
+    async function discardNote(values) {
+
+        const url = `user/DELETE/notes`;
+
+        const options = {
+            method: "DELETE",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(values),
+        };
+
+        const response = await http(url, options);
+
+        if (response?.success) {
+            message.info(response.message);
+            getNotes()
+            socket.current.emit("deleteNote", { message: 'note discarded' })
+        }
+
+        else message.error('Something went wrong');
+
+    }
+
     return (
         <Layout>
             <div className="session-section pt-2 px-4">
@@ -225,7 +250,18 @@ export default function SessionPage() {
                                         notes?.map(item => (
                                             <div className="col-lg-3">
                                                 <div style={{ maxHeight: '30v', minHeight: '20vh' }} className="my-2 w-100 bg-white rounded border shadow px-2">
-                                                    <p className="fs-6 text-primary fw-bold text-center my-1">{item.userName}</p>
+                                                    {
+                                                        sessionDetails?.userId === user?._id ?
+                                                            <div className="d-flex justify-content-between align-items-center px-2">
+                                                                <p className="fs-6 text-primary fw-bold my-1">{item.userName}</p>
+                                                                <DeleteOutlined
+                                                                    style={{ fontSize: '17.5px', color: 'red' }}
+                                                                    onClick={() => discardNote(item)}
+                                                                />
+                                                            </div>
+                                                            :
+                                                            <p className="fs-6 text-primary text-center fw-bold my-1">{item.userName}</p>
+                                                    }
                                                     <span className="text-secondary">{item.body}</span>
                                                 </div>
                                             </div>
@@ -270,7 +306,10 @@ export default function SessionPage() {
                                                     participants?.map(participant => (
                                                         <li className="d-flex justify-content-start align-items-center py-4">
                                                             <div>
-                                                                <Avatar size={56} icon={icon} />
+                                                                <Avatar
+                                                                    size={56}
+                                                                    src={`${BASE_URL}/${participant.file}`}
+                                                                />
                                                             </div>
                                                             <p className="mx-3">{participant.userName}</p>
                                                         </li>

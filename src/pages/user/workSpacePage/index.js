@@ -5,11 +5,7 @@ import { PlusOutlined } from '@ant-design/icons';
 import { Layout, AddParticipantModal } from '@components'
 import { http } from '@services'
 import { getUser } from '@helpers'
-
-const icon = <img
-    src='https://kleo.seventhqueen.com/wp-content/uploads/rtMedia/users/44269/2020/07/dummy-profile.png'
-    alt=''
-/>
+import { BASE_URL } from '@constants'
 
 export default function WorkSpacePage() {
 
@@ -18,7 +14,7 @@ export default function WorkSpacePage() {
     const workSpaceDetails = location.state
 
     const [participants, setParticipants] = useState(null)
-    
+
     const [visible, setVisible] = useState(false)
 
     const [user, setUser] = useState(null)
@@ -85,9 +81,10 @@ export default function WorkSpacePage() {
                                                 return (
                                                     <li className="d-flex justify-content-around align-items-center py-4">
                                                         <div className='d-flex align-items-center'>
-                                                            <Avatar size={56} style={{ background: 'blue' }}>
-                                                                {participant.userName[0]?.toUpperCase()}
-                                                            </Avatar>
+                                                            <Avatar
+                                                                size={56}
+                                                                src={`${BASE_URL}/${participant.file}`}
+                                                            />
                                                             <p className="mx-3">{participant.userName}</p>
                                                         </div>
                                                         < Tag
@@ -102,9 +99,10 @@ export default function WorkSpacePage() {
                                                 return (
                                                     <li className="d-flex justify-content-start align-items-center py-4">
                                                         <div className='d-flex align-items-center'>
-                                                            <Avatar size={56} style={{ background: 'blue' }}>
-                                                                {participant.userName[0]?.toUpperCase()}
-                                                            </Avatar>
+                                                        <Avatar 
+                                                            size={56}
+                                                            src={`${BASE_URL}/${participant.file}`} 
+                                                            />
                                                             <p className="mx-3">{participant.userName}</p>
                                                         </div>
                                                     </li>
@@ -123,7 +121,7 @@ export default function WorkSpacePage() {
                 <div className="position-absolute bottom-0 end-0">
                     <button
                         class="btn btn-dark rounded-pill d-flex align-items-center p-3 px-5 my-2"
-                        onClick={() => setVisible(true)} 
+                        onClick={() => setVisible(true)}
                     >
                         <PlusOutlined />
                         <span className="ms-2">Add Particpants</span>

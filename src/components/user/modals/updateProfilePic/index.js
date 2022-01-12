@@ -52,6 +52,7 @@ function UpdateProfilePic({ visible, setVisible, getSessions }) {
             visible={visible}
             title="Title"
             footer={[]}
+            onCancel={() => setVisible(false)}
         >
             <Form
                 name="basic"

@@ -5,6 +5,7 @@ import { getUser } from '@helpers'
 import { http } from '@services'
 import { BASE_URL } from '@constants'
 import { Row, Col, message } from 'antd'
+import { FileExclamationOutlined } from '@ant-design/icons';
 import './dashboard.css'
 
 export default function Dashboard() {
@@ -14,6 +15,7 @@ export default function Dashboard() {
     const [workSpaces, setWorkSpaces] = useState(null)
 
     async function getWorkSpaces() {
+        console.log(user)
         if (user) {
             const url = `user/GET/work-space/${user._id}`;
 
@@ -31,8 +33,11 @@ export default function Dashboard() {
 
     useEffect(() => {
         setUser(getUser())
-        getWorkSpaces()
     }, [])
+
+    useEffect(() => {
+        getWorkSpaces()
+    },[user])
 
     return (
         <Layout>
@@ -42,7 +47,7 @@ export default function Dashboard() {
                         <div className="col-lg-8 d-flex flex-column justify-content-center">
                             <h3 className="mb-3 text-start text-secondary">Work Spaces</h3>
                             {
-                                workSpaces ?
+                                workSpaces?.length ?
                                     <div className="dashboard-card-section h-100 w-100 rounded-3 bg-light border p-3 overflow-auto">
                                         <div className='row'>
                                             {
@@ -68,7 +73,10 @@ export default function Dashboard() {
                                         </div>
                                     </div>
                                     :
-                                    <></>
+                                    <div className="d-flex flex-column align-items-center justify-content-center dashboard-card-section h-100 w-100 rounded-3 bg-light border">
+                                        <FileExclamationOutlined style={{fontSize:'50px'}} />
+                                        <h5 className='text-center text-dark'>You haven't create any workspace yet..</h5>
+                                    </div>
                             }
                         </div>
                         <div className="col-lg-4 d-flex flex-column justify-content-center">

@@ -15,6 +15,7 @@ function JoinWorkSpaceModal({ visible, setVisible, getSessions }) {
 
         values.userEmail = user.email
         values.userName = user.name
+        values.file = user.file
 
         const url = `user/PUT/join-workspace`;
 
@@ -46,6 +47,7 @@ function JoinWorkSpaceModal({ visible, setVisible, getSessions }) {
             visible={visible}
             title="Title"
             footer={[]}
+            onCancel={() => setVisible(false)}
         >
             <Form
                 name="basic"

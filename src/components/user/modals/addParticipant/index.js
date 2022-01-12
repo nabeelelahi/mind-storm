@@ -42,6 +42,7 @@ function AddParticipantModal({ visible, setVisible, workSpaceDetails }) {
             visible={visible}
             title="Title"
             footer={[]}
+            onCancel={() => setVisible(false)}
         >
             <Form
                 name="basic"

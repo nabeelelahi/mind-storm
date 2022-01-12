@@ -6,15 +6,9 @@ import { Layout } from '@components'
 import { getUser } from '@helpers'
 import { http } from '@services'
 import { io } from 'socket.io-client';
-import { ParticpantSection, ChatSection, Notes } from '@sections'
-import { workSpace } from '@config'
+import { BASE_URL } from '@constants'
 
 const { Option } = Select;
-
-const icon = <img
-    src='https://kleo.seventhqueen.com/wp-content/uploads/rtMedia/users/44269/2020/07/dummy-profile.png'
-    alt=''
-/>
 
 const questions = ['What', 'Why', 'Who', 'Where', 'When', 'How']
 
@@ -292,7 +286,10 @@ export default function StarBursting() {
                                                     participants?.map(participant => (
                                                         <li className="d-flex justify-content-start align-items-center py-4">
                                                             <div>
-                                                                <Avatar size={56} icon={icon} />
+                                                                <Avatar
+                                                                    size={56}
+                                                                    src={`${BASE_URL}/${participant.file}`}
+                                                                />
                                                             </div>
                                                             <p className="mx-3">{participant.userName}</p>
                                                         </li>

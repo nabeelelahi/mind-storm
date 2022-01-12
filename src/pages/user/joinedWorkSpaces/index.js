@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Table, message, Tag } from 'antd';
+import { Table, message, Tag, Avatar } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
 import { Layout, JoinWorkSpaceModal } from '@components'
 import { useNavigate } from 'react-router';
@@ -68,11 +68,7 @@ export default function JoinedWorkSpaces() {
       dataIndex: 'file',
       key: 'file',
       render: (text, record) => (
-        <img
-          style={{ height: '12.5vh', width: '10vw', cursor: 'pointer' }}
-          src={`${BASE_URL}/${text}`}
-          onClick={() => navigate(`/sessions/${record._id}`)}
-        />
+        <Avatar size={64} src={`${BASE_URL}/${record.file}`} />
       )
     },
     {
